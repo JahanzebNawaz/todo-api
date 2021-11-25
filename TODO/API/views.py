@@ -11,7 +11,11 @@ class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     permission_classes = (IsAuthenticated, IsAdminOrOwner,)
-    filterset_fields = ['completed', 'description']
+    
+    filterset_fields = {
+        "completed": ('exact',),
+        "description": ('icontains',),
+    }
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
