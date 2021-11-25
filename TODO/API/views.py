@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import filters
 from API.permissions.permissions import IsAdminOrOwner
 from API.serialzers import TodoSerializer
 from API.models import Todo
@@ -10,7 +11,7 @@ class TodoViewSet(viewsets.ModelViewSet):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
     permission_classes = (IsAuthenticated, IsAdminOrOwner,)
-
+    filterset_fields = ['completed', 'description']
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
