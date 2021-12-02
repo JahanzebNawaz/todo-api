@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 from API import views
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 # router.register(r'todo', views.TodoView, 'todo')
 router.register(r'todo', views.TodoViewSet)
 
