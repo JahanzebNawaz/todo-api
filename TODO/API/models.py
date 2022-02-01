@@ -27,7 +27,7 @@ class Author(AbstractMixin):
 
 
 class Todo(AbstractMixin):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     completed = models.CharField(max_length=25, choices=STATUS_OPTIONS, default=NOT_DONE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
