@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -17,11 +18,19 @@ STATUS_OPTIONS = (
     (NOT_DONE, 'NOT DONE'),
 )
 
+class Author(AbstractMixin):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
 
 class Todo(AbstractMixin):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     completed = models.CharField(max_length=25, choices=STATUS_OPTIONS, default=NOT_DONE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name = 'TODO'
