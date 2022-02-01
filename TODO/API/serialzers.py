@@ -1,14 +1,22 @@
-from rest_framework import serializers
+from rest_framework_json_api import serializers
 
-from API.models import Todo
+from API.models import Todo, Author
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = "__all__"
+
 
 
 class TodoSerializer(serializers.ModelSerializer):
 
-    user = serializers.ReadOnlyField(source='user.username')
+    included_serializers = {
+        'author': AuthorSerializer,
+    }
 
     class Meta:
         model = Todo
-        fields = ['id', 'user', 'description', 'completed']
-
+        fields = "__all__"
 
